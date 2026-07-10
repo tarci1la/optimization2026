@@ -1,0 +1,43 @@
+{
+  "name": "inst_book",
+  "n": 7,
+  "jobs": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G"
+  ],
+  "release": [
+    2,
+    5,
+    4,
+    0,
+    0,
+    8,
+    9
+  ],
+  "duration": [
+    5,
+    6,
+    8,
+    4,
+    2,
+    3,
+    2
+  ],
+  "due": [
+    10,
+    21,
+    15,
+    10,
+    5,
+    15,
+    22
+  ],
+  "generator": {
+    "scheme": "MO-book 3.5 (Gu\u00e9ret, Prins & Sevaux 2000)"
+  }
+}

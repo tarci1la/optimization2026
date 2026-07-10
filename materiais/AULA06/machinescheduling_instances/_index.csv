@@ -1,0 +1,32 @@
+name,n,seed,scheme
+inst_book,7,,"MO-book 3.5 (Guéret, Prins & Sevaux 2000)"
+inst_n05_s01,5,1,1|r_j|sum T_j
+inst_n05_s02,5,2,1|r_j|sum T_j
+inst_n05_s03,5,3,1|r_j|sum T_j
+inst_n07_s01,7,1,1|r_j|sum T_j
+inst_n07_s02,7,2,1|r_j|sum T_j
+inst_n07_s03,7,3,1|r_j|sum T_j
+inst_n09_s01,9,1,1|r_j|sum T_j
+inst_n09_s02,9,2,1|r_j|sum T_j
+inst_n09_s03,9,3,1|r_j|sum T_j
+inst_n11_s01,11,1,1|r_j|sum T_j
+inst_n11_s02,11,2,1|r_j|sum T_j
+inst_n11_s03,11,3,1|r_j|sum T_j
+inst_n13_s01,13,1,1|r_j|sum T_j
+inst_n13_s02,13,2,1|r_j|sum T_j
+inst_n13_s03,13,3,1|r_j|sum T_j
+inst_n15_s01,15,1,1|r_j|sum T_j
+inst_n15_s02,15,2,1|r_j|sum T_j
+inst_n15_s03,15,3,1|r_j|sum T_j
+inst_n17_s01,17,1,1|r_j|sum T_j
+inst_n17_s02,17,2,1|r_j|sum T_j
+inst_n17_s03,17,3,1|r_j|sum T_j
+inst_n19_s01,19,1,1|r_j|sum T_j
+inst_n19_s02,19,2,1|r_j|sum T_j
+inst_n19_s03,19,3,1|r_j|sum T_j
+inst_n21_s01,21,1,1|r_j|sum T_j
+inst_n21_s02,21,2,1|r_j|sum T_j
+inst_n21_s03,21,3,1|r_j|sum T_j
+inst_n24_s01,24,1,1|r_j|sum T_j
+inst_n24_s02,24,2,1|r_j|sum T_j
+inst_n24_s03,24,3,1|r_j|sum T_j

@@ -1,0 +1,39 @@
+{
+  "name": "inst_n05_s03",
+  "n": 5,
+  "jobs": [
+    "J1",
+    "J2",
+    "J3",
+    "J4",
+    "J5"
+  ],
+  "release": [
+    0,
+    0,
+    4,
+    4,
+    6
+  ],
+  "duration": [
+    2,
+    2,
+    1,
+    7,
+    1
+  ],
+  "due": [
+    3,
+    4,
+    9,
+    11,
+    10
+  ],
+  "generator": {
+    "seed": 3,
+    "pmax": 10,
+    "rel_factor": 0.5,
+    "slack_factor": 0.3,
+    "scheme": "1|r_j|sum T_j"
+  }
+}

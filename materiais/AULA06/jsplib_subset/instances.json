@@ -1,0 +1,72 @@
+[
+  {
+    "name": "abz5",
+    "jobs": 10,
+    "machines": 10,
+    "optimum": 1234,
+    "path": "instances/abz5"
+  },
+  {
+    "name": "abz6",
+    "jobs": 10,
+    "machines": 10,
+    "optimum": 943,
+    "path": "instances/abz6"
+  },
+  {
+    "name": "ft06",
+    "jobs": 6,
+    "machines": 6,
+    "optimum": 55,
+    "path": "instances/ft06"
+  },
+  {
+    "name": "ft10",
+    "jobs": 10,
+    "machines": 10,
+    "optimum": 930,
+    "path": "instances/ft10"
+  },
+  {
+    "name": "ft20",
+    "jobs": 20,
+    "machines": 5,
+    "optimum": 1165,
+    "path": "instances/ft20"
+  },
+  {
+    "name": "la01",
+    "jobs": 10,
+    "machines": 5,
+    "optimum": 666,
+    "path": "instances/la01"
+  },
+  {
+    "name": "la02",
+    "jobs": 10,
+    "machines": 5,
+    "optimum": 655,
+    "path": "instances/la02"
+  },
+  {
+    "name": "la03",
+    "jobs": 10,
+    "machines": 5,
+    "optimum": 597,
+    "path": "instances/la03"
+  },
+  {
+    "name": "la04",
+    "jobs": 10,
+    "machines": 5,
+    "optimum": 590,
+    "path": "instances/la04"
+  },
+  {
+    "name": "orb01",
+    "jobs": 10,
+    "machines": 10,
+    "optimum": 1059,
+    "path": "instances/orb01"
+  }
+]
