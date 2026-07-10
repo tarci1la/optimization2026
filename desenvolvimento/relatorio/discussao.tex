@@ -1,0 +1,179 @@
+\section{Discussão dos resultados}
+
+Esta discussão utiliza exclusivamente os dados registrados em
+\texttt{resultados\_completos.csv}, as tabelas e gráficos gerais gerados a partir
+desse arquivo, o dashboard estático e os dados detalhados dos gráficos de Gantt.
+Assim, as interpretações apresentadas estão restritas ao conjunto de instâncias
+executado, às formulações implementadas e à configuração computacional adotada:
+limite de tempo de 300 segundos por instância e tolerância relativa de gap de
+1\%.
+
+\subsection{Resultados observados}
+
+Foram analisadas 48 instâncias no total: 31 de Machine Scheduling, 10 de Job
+Shop Scheduling e 7 de Flow Shop Scheduling. O HiGHS encontrou solução primal
+viável em todas as instâncias registradas, e não houve erros de execução nos
+resultados consolidados.
+
+O problema com maior proporção de soluções ótimas foi o Flow Shop Scheduling,
+com 6 soluções ótimas em 7 instâncias, correspondendo a aproximadamente 85,7\%
+do conjunto desse problema. O Job Shop Scheduling apresentou 6 soluções ótimas
+em 10 instâncias, isto é, 60,0\%. O Machine Scheduling teve 17 soluções ótimas
+em 31 instâncias, aproximadamente 54,8\%. Portanto, embora Machine Scheduling
+tenha apresentado a maior quantidade absoluta de soluções ótimas, Flow Shop
+Scheduling apresentou a maior proporção de instâncias resolvidas dentro da
+tolerância de otimalidade configurada.
+
+Em relação ao tempo de solução, o Job Shop Scheduling apresentou o maior tempo
+médio, 190,464 segundos, e também o maior tempo mediano, 235,695 segundos. O
+Machine Scheduling teve tempo médio de 150,670 segundos e mediana de 119,012
+segundos. O Flow Shop Scheduling apresentou o menor tempo médio, 44,178
+segundos, e a menor mediana, 0,619 segundo. Esses valores indicam que, no
+conjunto de dados considerado, Job Shop foi o problema com comportamento mais
+custoso em termos de tempo central típico, enquanto Machine Scheduling concentrou
+maior número absoluto de interrupções por limite de tempo.
+
+As instâncias que atingiram o limite de tempo foram 14 em Machine Scheduling, 4
+em Job Shop Scheduling e 1 em Flow Shop Scheduling. Em Machine Scheduling, todas
+as interrupções ocorreram em instâncias com 15 ou mais tarefas. Em Job Shop, as
+instâncias interrompidas foram \texttt{abz5}, \texttt{ft10}, \texttt{ft20} e
+\texttt{orb01}. Em Flow Shop, apenas \texttt{problem\_10m\_20j} atingiu o limite
+de tempo. O dashboard e a tabela de instâncias com maior tempo mostram que
+essas instâncias aparecem entre os casos mais custosos do experimento.
+
+O comportamento do gap também variou substancialmente entre os problemas. O gap
+médio geral foi 0,3841 em Machine Scheduling, 0,1297 em Job Shop Scheduling e
+0,0079 em Flow Shop Scheduling. Considerando apenas as soluções não ótimas, os
+gaps médios foram 0,8432 para Machine Scheduling, 0,3118 para Job Shop
+Scheduling e 0,0241 para Flow Shop Scheduling. O maior gap registrado ocorreu em
+Machine Scheduling, com valor aproximadamente igual a 1,0000. Em Job Shop, o
+maior gap foi 0,6008, observado em \texttt{ft20}. Em Flow Shop, o maior gap foi
+0,0241, correspondente à única instância interrompida pelo limite de tempo.
+
+\subsection{Possíveis explicações}
+
+Os resultados sugerem que a dificuldade computacional está associada à
+combinação entre tamanho da instância, número de variáveis, número de restrições
+e estrutura combinatória do modelo. Essa relação aparece nos gráficos de
+tarefas versus tempo, variáveis versus tempo e restrições versus tempo, embora
+não seja perfeitamente determinística.
+
+No Machine Scheduling, todas as instâncias possuem apenas uma máquina, mas o
+modelo utiliza variáveis binárias associadas a pares de tarefas. A média de
+variáveis foi 148,548 e a média de restrições foi 445,645, com máximos de 348
+variáveis e 1044 restrições. As instâncias de maior porte desse problema,
+especialmente as com 21 e 24 tarefas, aparecem entre as maiores em número de
+variáveis, restrições e gap. Uma explicação plausível é que o crescimento
+combinatório das decisões de sequenciamento dificulta o fechamento do gap, mesmo
+em máquina única.
+
+No Job Shop Scheduling, o número médio de tarefas foi 10,6 e o número médio de
+máquinas foi 7,1. A média de variáveis foi 448,6 e a média de restrições foi
+1344,8, superiores às médias de Machine Scheduling. O maior modelo de Job Shop
+registrado teve 1051 variáveis e 3152 restrições. Como o Job Shop combina
+precedências tecnológicas por job com conflitos de capacidade em várias
+máquinas, é razoável interpretar que a estrutura disjuntiva do modelo contribuiu
+para os tempos elevados. Essa interpretação é compatível com o fato de o Job
+Shop ter apresentado o maior tempo médio e mediano.
+
+No Flow Shop Scheduling, a formulação posicional explorou a existência de uma
+sequência comum de jobs nas máquinas. Apesar de o conjunto incluir instâncias
+com até 30 tarefas e 10 máquinas, o problema apresentou a menor média de tempo e
+a maior proporção de soluções ótimas. A média de variáveis foi 439,571 e a média
+de restrições foi 741,286. Assim, embora os modelos de Flow Shop não sejam
+pequenos em número de variáveis, a estrutura regular da sequência comum pode ter
+favorecido o desempenho observado do HiGHS neste conjunto específico.
+
+O número de máquinas também afeta os problemas de maneiras distintas. Em Machine
+Scheduling ele é constante e igual a 1, logo a dificuldade observada está ligada
+principalmente ao número de tarefas e às disjunções entre elas. Em Job Shop, o
+número de máquinas aumenta a quantidade de conflitos de capacidade entre
+operações. Em Flow Shop, mais máquinas aumentam a dimensão do modelo e a cadeia
+de precedências, mas preservam a ordem comum das tarefas, o que pode explicar
+por que instâncias de Flow Shop com várias máquinas ainda foram resolvidas com
+mais estabilidade do que parte das instâncias de Job Shop.
+
+\subsection{Análise dos Gantts}
+
+Os gráficos de Gantt foram gerados para três instâncias representativas:
+\texttt{inst\_n05\_s01} em Machine Scheduling, \texttt{ft06} em Job Shop
+Scheduling e \texttt{problem\_3m\_10j} em Flow Shop Scheduling. Essas três
+soluções foram resolvidas novamente apenas para recuperar os horários detalhados
+de início e término, e as validações estruturais não indicaram violações de
+precedência, duração, sobreposição ou makespan.
+
+No Gantt de Machine Scheduling, a instância possui 5 tarefas e uma única
+máquina. O makespan da programação detalhada foi 39,0. A soma dos tempos de
+processamento foi 38,0, e a máquina ficou ociosa por 1,0 unidade de tempo quando
+se considera o intervalo entre o tempo zero e o makespan. No intervalo efetivo
+entre a primeira tarefa e a última conclusão, não houve ociosidade interna. Como
+há apenas uma máquina, ela concentra toda a carga e determina diretamente o
+makespan. O gráfico evidencia uma sequência compacta de tarefas após o início
+da primeira operação.
+
+No Gantt de Job Shop, a instância \texttt{ft06} possui 6 jobs, 6 máquinas e 36
+operações, com makespan aproximadamente igual a 55,0. Todas as operações
+esperadas estão presentes. As precedências de cada job foram respeitadas, mas
+existem esperas entre operações: foram observados 30 intervalos entre operações
+consecutivas de jobs, dos quais 14 tiveram espera positiva, com soma total de
+esperas igual a 53,0 e maior espera igual a 8,0. Essa característica é coerente
+com o Job Shop, no qual uma operação pode precisar aguardar a liberação da
+máquina seguinte. Pelos dados do Gantt, as máquinas M5, M0 e M4 apresentaram
+altas cargas de processamento, com 43,0, 40,0 e 40,0 unidades, respectivamente.
+A máquina M5 teve a menor folga em relação ao makespan, 12,0 unidades, o que
+sugere papel relevante na formação do caminho crítico da solução observada. As
+máquinas M2 e M3 apresentaram maiores períodos ociosos dentro de suas janelas de
+atividade, indicando que nem todas as máquinas foram igualmente pressionadas.
+
+No Gantt de Flow Shop, a instância \texttt{problem\_3m\_10j} possui 10 tarefas e
+3 máquinas, com makespan 126,0. A sequência encontrada foi
+\texttt{J4 -> J8 -> J9 -> J3 -> J5 -> J7 -> J10 -> J1 -> J2 -> J6}. O fluxo das
+tarefas respeita a ordem M1, M2 e M3. As cargas totais por máquina foram 101,0
+em M1, 124,0 em M2 e 101,0 em M3. A máquina M2 foi a mais carregada e terminou
+em 125,0, muito próxima do makespan, o que sugere que ela atuou como gargalo
+principal nesta programação. A máquina M3 iniciou apenas no tempo 16,0 e teve
+ociosidade interna de 9,0 unidades dentro de sua janela de atividade, além de
+receber tarefas condicionadas pela conclusão em M2. Foram observadas esperas
+entre máquinas em 13 dos 20 intervalos analisados, com soma total de 129,0 e
+maior espera igual a 18,0. Esse comportamento é compatível com o fluxo em série:
+mesmo com sequência comum, as máquinas finais podem acumular esperas decorrentes
+do desalinhamento entre tempos de processamento nas etapas anteriores.
+
+\subsection{Desempenho do HiGHS e limites da configuração}
+
+O HiGHS foi capaz de encontrar soluções viáveis para todas as 48 instâncias
+registradas. Esse é um resultado relevante, pois mesmo as instâncias
+interrompidas por tempo possuem ponto primal viável. Por outro lado, a
+configuração de 300 segundos e gap relativo de 1\% não foi suficiente para
+encerrar todas as instâncias dentro da tolerância estabelecida. O efeito dessa
+configuração é visível principalmente em Machine Scheduling e Job Shop
+Scheduling, que concentraram a maior parte dos limites de tempo e dos gaps mais
+altos.
+
+Também é importante observar que o status \texttt{OPTIMAL} deve ser interpretado
+dentro da tolerância configurada. Algumas instâncias com status ótimo possuem
+gap positivo menor que 1\%, o que indica otimalidade de acordo com o critério de
+parada adotado. Portanto, a comparação entre problemas deve considerar não
+apenas o status final, mas também o gap, o tempo consumido e o tamanho do modelo.
+
+\subsection{Limitações do experimento}
+
+As conclusões são limitadas ao conjunto de instâncias analisado. Os tamanhos dos
+conjuntos não são iguais: foram 31 instâncias de Machine Scheduling, 10 de Job
+Shop Scheduling e 7 de Flow Shop Scheduling. Assim, médias e proporções devem
+ser interpretadas com cautela, principalmente no Flow Shop, que possui menor
+número de observações.
+
+Outra limitação é que as formulações utilizadas são modelos MILP diretos. Em
+Machine Scheduling e Job Shop, as formulações dependem de restrições
+disjuntivas e variáveis binárias de ordenação, que podem produzir relaxações
+lineares difíceis para o solver. No Flow Shop, a formulação posicional pareceu
+mais favorável nos dados observados, mas isso não implica superioridade geral do
+problema ou da formulação em outros conjuntos de instâncias.
+
+Por fim, os resultados consolidados armazenam métricas agregadas, mas não
+armazenam as programações completas de todas as soluções. Por isso, a validação
+estrutural detalhada foi realizada apenas para as três instâncias selecionadas
+para os gráficos de Gantt. Para análises futuras, seria recomendável registrar
+também os horários de início e término de todas as operações, permitindo validar
+e visualizar qualquer solução sem necessidade de nova execução do modelo.

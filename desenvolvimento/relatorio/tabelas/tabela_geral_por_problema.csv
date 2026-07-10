@@ -1,0 +1,4 @@
+problema,instancias,otimas,viaveis_nao_otimas,limite_tempo,erros,tempo_medio_s,tempo_mediano_s,maior_tempo_s,gap_medio,maior_gap,media_tarefas,media_maquinas,media_variaveis,media_restricoes,gap_medio_nao_otimas
+Machine Scheduling,31,17,14,14,0,150.670,119.012,300.019,0.3841,1.0000,13.871,1.000,148.548,445.645,0.8432
+Job Shop Scheduling,10,6,4,4,0,190.464,235.695,300.218,0.1297,0.6008,10.600,7.100,448.600,1344.800,0.3118
+Flow Shop Scheduling,7,6,1,1,0,44.178,0.619,300.249,0.0079,0.0241,17.143,5.571,439.571,741.286,0.0241

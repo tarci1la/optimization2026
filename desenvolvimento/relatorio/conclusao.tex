@@ -1,0 +1,51 @@
+\section{Conclusão}
+
+Este trabalho analisou três problemas clássicos de escalonamento: Machine
+Scheduling, Job Shop Scheduling e Flow Shop Scheduling. As formulações foram
+implementadas em Julia, com JuMP e o solver HiGHS, e avaliadas sobre 48
+instâncias registradas nos arquivos de resultados: 31 de Machine Scheduling, 10
+de Job Shop Scheduling e 7 de Flow Shop Scheduling. No conjunto consolidado,
+foram obtidos 29 resultados com status ótimo, distribuídos entre os três
+problemas, sem registros de erro de execução nos resultados computacionais
+consolidados.
+
+Os resultados indicaram comportamentos distintos entre os problemas. O Flow Shop
+Scheduling apresentou a maior proporção de soluções ótimas, com 6 instâncias
+ótimas em 7, além dos menores tempos médio e mediano. O Job Shop Scheduling
+apresentou os maiores tempos médio e mediano, o que evidencia maior dificuldade
+computacional no comportamento central observado. O Machine Scheduling, embora
+tenha apenas uma máquina nas instâncias analisadas, concentrou a maior
+quantidade absoluta de interrupções por limite de tempo e os maiores gaps,
+especialmente nas instâncias com maior número de tarefas. Assim, considerando
+conjuntamente tempo, gap e limites de tempo, os resultados apontam maior
+dificuldade prática para Machine Scheduling no fechamento da otimalidade e para
+Job Shop Scheduling no esforço computacional típico.
+
+Os gráficos de Gantt complementaram a análise agregada ao mostrar a estrutura
+das soluções selecionadas. Em Machine Scheduling, a programação da instância
+\texttt{inst\_n05\_s01} concentrou toda a carga em uma única máquina, que
+determinou diretamente o makespan. Em Job Shop Scheduling, a instância
+\texttt{ft06} evidenciou o efeito das precedências entre operações e das esperas
+causadas por conflitos de máquina, com algumas máquinas atuando como gargalos
+mais relevantes. Em Flow Shop Scheduling, a instância
+\texttt{problem\_3m\_10j} mostrou o fluxo das tarefas pela sequência comum de
+máquinas, com formação de gargalo na máquina de maior carga e presença de
+tempos ociosos decorrentes do encadeamento entre estágios.
+
+A configuração adotada, com limite de tempo de 300 segundos e gap relativo de
+1\%, foi adequada para obter soluções viáveis em todas as instâncias registradas
+e para resolver parte expressiva do conjunto até a otimalidade segundo o
+critério do solver. Contudo, essa configuração não foi suficiente para fechar o
+gap em todas as instâncias, principalmente em Machine Scheduling e Job Shop
+Scheduling. A interpretação dos resultados deve considerar essa limitação, bem
+como o fato de que os conjuntos possuem tamanhos diferentes e que os resultados
+dependem das formulações MILP diretas utilizadas.
+
+Como trabalhos futuros, recomenda-se avaliar formulações alternativas,
+estratégias de fortalecimento das restrições, diferentes valores de Big-M,
+heurísticas de geração de soluções iniciais e outros limites de tempo ou
+tolerâncias de gap. Também seria útil armazenar os horários completos de início
+e término para todas as instâncias, permitindo validações estruturais e gráficos
+de Gantt sem necessidade de nova resolução dos modelos. Essas extensões
+permitiriam uma comparação mais ampla entre formulações e uma análise mais
+detalhada do comportamento computacional dos três problemas.

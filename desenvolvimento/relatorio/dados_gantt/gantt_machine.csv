@@ -1,0 +1,6 @@
+problema,instancia,job,operation,machine,start,finish,duration,makespan,status_terminacao,status_primal
+Machine Scheduling,inst_n05_s01,J1,,M1,1.0,7.0,6,39.0,OPTIMAL,FEASIBLE_POINT
+Machine Scheduling,inst_n05_s01,J3,,M1,7.0,15.0,8,39.0,OPTIMAL,FEASIBLE_POINT
+Machine Scheduling,inst_n05_s01,J5,,M1,15.0,19.0,4,39.0,OPTIMAL,FEASIBLE_POINT
+Machine Scheduling,inst_n05_s01,J2,,M1,19.000000000000004,29.000000000000004,10,39.0,OPTIMAL,FEASIBLE_POINT
+Machine Scheduling,inst_n05_s01,J4,,M1,29.0,39.0,10,39.0,OPTIMAL,FEASIBLE_POINT

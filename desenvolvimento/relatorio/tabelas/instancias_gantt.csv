@@ -1,0 +1,4 @@
+problema,instancia,tarefas,maquinas,operacoes,status_terminacao,status_primal,valor_objetivo_ou_makespan,gap_relativo,tempo_solucao,quantidade_variaveis,quantidade_restricoes
+Machine Scheduling,inst_n05_s01,5,1,5,OPTIMAL,FEASIBLE_POINT,7.0,4.285714274893897e-7,0.015147738,25,75
+Job Shop Scheduling,ft06,6,6,36,OPTIMAL,FEASIBLE_POINT,54.999999999999496,0.0,0.509079322,127,380
+Flow Shop Scheduling,problem_3m_10j,10,3,30,OPTIMAL,FEASIBLE_POINT,126.0,0.0,0.016689981,131,231

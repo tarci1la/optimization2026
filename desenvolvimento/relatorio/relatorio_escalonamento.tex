@@ -1,0 +1,448 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{pdflscape}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{adjustbox}
+
+\geometry{
+  left=3cm,
+  right=2cm,
+  top=3cm,
+  bottom=2cm
+}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  urlcolor=black,
+  citecolor=black
+}
+
+\graphicspath{{figuras/}{figuras/gantt/}{dashboard/}{tabelas/}}
+\setlength{\parindent}{1.25cm}
+\setlength{\parskip}{0.2em}
+\renewcommand{\arraystretch}{1.15}
+
+% Campos editáveis da capa.
+\newcommand{\universidade}{Universidade Federal do Amazonas}
+\newcommand{\curso}{Curso}
+\newcommand{\disciplina}{Disciplina}
+\newcommand{\professor}{Professor}
+\newcommand{\autora}{Tárcila Jéssica Silva de Sousa}
+\newcommand{\matricula}{Matrícula}
+\newcommand{\titulo}{Análise Computacional de Problemas de Escalonamento}
+\newcommand{\subtitulo}{Machine Scheduling, Job Shop Scheduling e Flow Shop}
+\newcommand{\localidade}{Manaus}
+\newcommand{\ano}{2026}
+
+\begin{document}
+
+\begin{titlepage}
+  \centering
+  {\large \universidade\par}
+  \vspace{0.5cm}
+  {\large \curso\par}
+  {\large \disciplina\par}
+  \vspace{0.5cm}
+  {\large Professor(a): \professor\par}
+
+  \vfill
+
+  {\large \autora\par}
+  {\large Matrícula: \matricula\par}
+
+  \vfill
+
+  {\bfseries\Large \titulo\par}
+  \vspace{0.4cm}
+  {\large \subtitulo\par}
+
+  \vfill
+
+  {\large \localidade\par}
+  {\large \ano\par}
+\end{titlepage}
+
+\pagenumbering{arabic}
+
+\section{Resultados}
+
+Esta seção apresenta os resultados computacionais consolidados a partir dos
+arquivos gerados nos experimentos. Foram considerados apenas os valores
+registrados em \texttt{resultados\_completos.csv}, nas tabelas derivadas desse
+arquivo e nos dados detalhados utilizados para os gráficos de Gantt.
+
+\subsection{Visão geral das execuções}
+
+A Tabela~\ref{tab:geral} resume os resultados por problema. O conjunto contém
+48 instâncias, das quais 29 foram registradas com status ótimo. Não houve erros
+nos resultados consolidados.
+
+\begin{table}[H]
+\centering
+\caption{Resumo geral dos experimentos por problema.}
+\label{tab:geral}
+\scriptsize
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lrrrrrrrrrrrrrr}
+\toprule
+Problema & Inst. & Ótimas & Viáv. não ót. & Lim. tempo & Erros &
+Tempo méd. & Tempo med. & Maior tempo & Gap méd. & Maior gap &
+Tarefas méd. & Máq. méd. & Var. méd. & Restr. méd. \\
+\midrule
+Machine Scheduling & 31 & 17 & 14 & 14 & 0 & 150,670 & 119,012 & 300,019 & 0,3841 & 1,0000 & 13,871 & 1,000 & 148,548 & 445,645 \\
+Job Shop Scheduling & 10 & 6 & 4 & 4 & 0 & 190,464 & 235,695 & 300,218 & 0,1297 & 0,6008 & 10,600 & 7,100 & 448,600 & 1344,800 \\
+Flow Shop Scheduling & 7 & 6 & 1 & 1 & 0 & 44,178 & 0,619 & 300,249 & 0,0079 & 0,0241 & 17,143 & 5,571 & 439,571 & 741,286 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+Observa-se que Flow Shop Scheduling apresentou a maior proporção de resultados
+ótimos, enquanto Job Shop Scheduling apresentou os maiores tempos médio e
+mediano. Machine Scheduling concentrou o maior número absoluto de limites de
+tempo e o maior gap médio.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\textwidth]{quantidade_instancias_por_status.pdf}
+\caption{Quantidade de instâncias por status de terminação.}
+\label{fig:status}
+\end{figure}
+
+A Figura~\ref{fig:status} mostra que os três problemas tiveram instâncias
+resolvidas com status ótimo e instâncias interrompidas pelo limite de tempo. O
+número absoluto de interrupções foi maior em Machine Scheduling.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.86\textwidth]{tempo_medio_por_problema.pdf}
+\caption{Tempo médio de solução por problema.}
+\label{fig:tempo-medio}
+\end{figure}
+
+A Figura~\ref{fig:tempo-medio} evidencia a diferença de tempo médio entre os
+problemas. Job Shop Scheduling apresentou o maior tempo médio, seguido por
+Machine Scheduling e Flow Shop Scheduling.
+
+\subsection{Machine Scheduling}
+
+Machine Scheduling teve 31 instâncias analisadas, com 17 resultados ótimos, 14
+soluções viáveis não ótimas e 14 interrupções por limite de tempo. Como as
+instâncias possuem uma máquina, o crescimento do número de tarefas concentrou a
+dificuldade nas decisões de sequenciamento.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{tempo_solucao_por_instancia.pdf}
+\caption{Tempo de solução por instância.}
+\label{fig:tempo-instancia}
+\end{figure}
+
+Na Figura~\ref{fig:tempo-instancia}, as instâncias de Machine Scheduling de
+maior porte aparecem frequentemente próximas ao limite de 300 segundos,
+indicando dificuldade para encerrar a resolução dentro da tolerância
+configurada.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.90\textwidth]{gap_por_instancia.pdf}
+\caption{Gap relativo por instância.}
+\label{fig:gap-instancia}
+\end{figure}
+
+A Figura~\ref{fig:gap-instancia} mostra que os maiores gaps foram observados em
+Machine Scheduling. Esse comportamento é coerente com os resultados da
+Tabela~\ref{tab:geral}, em que esse problema apresentou o maior gap médio e o
+maior gap máximo.
+
+\subsection{Job Shop Scheduling}
+
+Job Shop Scheduling teve 10 instâncias analisadas, com 6 resultados ótimos e 4
+interrupções por limite de tempo. O problema apresentou os maiores tempos médio
+e mediano, o que indica maior esforço computacional central no conjunto
+avaliado.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.90\textwidth]{variaveis_versus_tempo.pdf}
+\caption{Número de variáveis versus tempo de solução.}
+\label{fig:variaveis-tempo}
+\end{figure}
+
+A Figura~\ref{fig:variaveis-tempo} sugere associação entre porte do modelo e
+tempo de solução, especialmente nas instâncias com maior número de variáveis.
+Em Job Shop Scheduling, essa relação é acompanhada por restrições de
+precedência e conflitos de máquina.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.90\textwidth]{restricoes_versus_tempo.pdf}
+\caption{Número de restrições versus tempo de solução.}
+\label{fig:restricoes-tempo}
+\end{figure}
+
+A Figura~\ref{fig:restricoes-tempo} reforça que modelos maiores tendem a
+aparecer entre os casos mais custosos, embora o tempo de solução também dependa
+da estrutura combinatória de cada instância.
+
+\subsection{Flow Shop Scheduling}
+
+Flow Shop Scheduling teve 7 instâncias analisadas, com 6 resultados ótimos e 1
+interrupção por limite de tempo. O problema apresentou os menores tempos médio
+e mediano entre os três conjuntos analisados.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.90\textwidth]{tarefas_versus_tempo.pdf}
+\caption{Número de tarefas versus tempo de solução.}
+\label{fig:tarefas-tempo}
+\end{figure}
+
+Na Figura~\ref{fig:tarefas-tempo}, o número de tarefas não explica sozinho o
+tempo de solução. Em Flow Shop Scheduling, a estrutura de sequência comum nas
+máquinas contribuiu para resultados mais estáveis no conjunto observado.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.90\textwidth]{instancias_maior_tempo.pdf}
+\caption{Instâncias com maior tempo de solução.}
+\label{fig:maior-tempo}
+\end{figure}
+
+A Figura~\ref{fig:maior-tempo} destaca as instâncias mais demoradas. A única
+instância de Flow Shop Scheduling interrompida por limite de tempo aparece
+entre esses casos, mas o conjunto desse problema teve desempenho geral mais
+favorável.
+
+\subsection{Tabelas específicas}
+
+A Tabela~\ref{tab:mais-demoradas} apresenta as cinco instâncias mais demoradas
+de cada problema. Os tempos próximos de 300 segundos correspondem, em geral, a
+casos interrompidos pelo limite de tempo.
+
+\begin{longtable}{llrrrrr}
+\caption{Cinco instâncias mais demoradas de cada problema.}
+\label{tab:mais-demoradas}\\
+\toprule
+Problema & Instância & Tarefas & Máq. & Oper. & Tempo (s) & Gap \\
+\midrule
+\endfirsthead
+\toprule
+Problema & Instância & Tarefas & Máq. & Oper. & Tempo (s) & Gap \\
+\midrule
+\endhead
+Machine & \texttt{inst\_n19\_s01} & 19 & 1 & 19 & 300,019 & 0,8425 \\
+Machine & \texttt{inst\_n17\_s02} & 17 & 1 & 17 & 300,018 & 0,8351 \\
+Machine & \texttt{inst\_n15\_s02} & 15 & 1 & 15 & 300,017 & 0,4779 \\
+Machine & \texttt{inst\_n17\_s01} & 17 & 1 & 17 & 300,017 & 0,6533 \\
+Machine & \texttt{inst\_n15\_s01} & 15 & 1 & 15 & 300,015 & 0,6486 \\
+Job Shop & \texttt{abz5} & 10 & 10 & 100 & 300,218 & 0,1425 \\
+Job Shop & \texttt{ft20} & 20 & 5 & 100 & 300,036 & 0,6008 \\
+Job Shop & \texttt{ft10} & 10 & 10 & 100 & 300,019 & 0,2157 \\
+Job Shop & \texttt{orb01} & 10 & 10 & 100 & 300,019 & 0,2879 \\
+Job Shop & \texttt{la02} & 10 & 5 & 50 & 270,615 & 0,0100 \\
+Flow Shop & \texttt{problem\_10m\_20j} & 20 & 10 & 200 & 300,249 & 0,0241 \\
+Flow Shop & \texttt{problem\_5m\_20j} & 20 & 5 & 100 & 6,014 & 0,0100 \\
+Flow Shop & \texttt{problem\_8m\_10j} & 10 & 8 & 80 & 2,096 & 0,0077 \\
+Flow Shop & \texttt{problem\_5m\_30j} & 30 & 5 & 150 & 0,619 & 0,0091 \\
+Flow Shop & \texttt{problem\_5m\_10j} & 10 & 5 & 50 & 0,203 & 0,0046 \\
+\bottomrule
+\end{longtable}
+
+A Tabela~\ref{tab:limite-tempo} lista as instâncias que atingiram limite de
+tempo. A maior parte pertence a Machine Scheduling, seguida por Job Shop
+Scheduling e por uma instância de Flow Shop Scheduling.
+
+\begin{longtable}{llrrrrr}
+\caption{Instâncias interrompidas pelo limite de tempo.}
+\label{tab:limite-tempo}\\
+\toprule
+Problema & Instância & Tarefas & Máq. & Oper. & Tempo (s) & Gap \\
+\midrule
+\endfirsthead
+\toprule
+Problema & Instância & Tarefas & Máq. & Oper. & Tempo (s) & Gap \\
+\midrule
+\endhead
+Machine & \texttt{inst\_n15\_s01} & 15 & 1 & 15 & 300,015 & 0,6486 \\
+Machine & \texttt{inst\_n15\_s02} & 15 & 1 & 15 & 300,017 & 0,4779 \\
+Machine & \texttt{inst\_n17\_s01} & 17 & 1 & 17 & 300,017 & 0,6533 \\
+Machine & \texttt{inst\_n17\_s02} & 17 & 1 & 17 & 300,018 & 0,8351 \\
+Machine & \texttt{inst\_n17\_s03} & 17 & 1 & 17 & 300,014 & 0,7035 \\
+Machine & \texttt{inst\_n19\_s01} & 19 & 1 & 19 & 300,019 & 0,8425 \\
+Machine & \texttt{inst\_n19\_s02} & 19 & 1 & 19 & 285,767 & 0,9712 \\
+Machine & \texttt{inst\_n19\_s03} & 19 & 1 & 19 & 300,011 & 0,9229 \\
+Machine & \texttt{inst\_n21\_s01} & 21 & 1 & 21 & 300,013 & 0,9083 \\
+Machine & \texttt{inst\_n21\_s02} & 21 & 1 & 21 & 300,012 & 0,9755 \\
+Machine & \texttt{inst\_n21\_s03} & 21 & 1 & 21 & 300,014 & 0,9189 \\
+Machine & \texttt{inst\_n24\_s01} & 24 & 1 & 24 & 300,012 & 1,0000 \\
+Machine & \texttt{inst\_n24\_s02} & 24 & 1 & 24 & 300,012 & 0,9847 \\
+Machine & \texttt{inst\_n24\_s03} & 24 & 1 & 24 & 300,014 & 0,9629 \\
+Job Shop & \texttt{abz5} & 10 & 10 & 100 & 300,218 & 0,1425 \\
+Job Shop & \texttt{ft10} & 10 & 10 & 100 & 300,019 & 0,2157 \\
+Job Shop & \texttt{ft20} & 20 & 5 & 100 & 300,036 & 0,6008 \\
+Job Shop & \texttt{orb01} & 10 & 10 & 100 & 300,019 & 0,2879 \\
+Flow Shop & \texttt{problem\_10m\_20j} & 20 & 10 & 200 & 300,249 & 0,0241 \\
+\bottomrule
+\end{longtable}
+
+A Tabela~\ref{tab:maior-gap} apresenta as instâncias com maior gap. Os maiores
+valores ocorreram em Machine Scheduling, principalmente nas instâncias de maior
+porte.
+
+\begin{longtable}{llrrrrr}
+\caption{Instâncias com maior gap relativo por problema.}
+\label{tab:maior-gap}\\
+\toprule
+Problema & Instância & Tarefas & Máq. & Oper. & Tempo (s) & Gap \\
+\midrule
+\endfirsthead
+\toprule
+Problema & Instância & Tarefas & Máq. & Oper. & Tempo (s) & Gap \\
+\midrule
+\endhead
+Machine & \texttt{inst\_n24\_s01} & 24 & 1 & 24 & 300,012 & 1,0000 \\
+Machine & \texttt{inst\_n24\_s02} & 24 & 1 & 24 & 300,012 & 0,9847 \\
+Machine & \texttt{inst\_n21\_s02} & 21 & 1 & 21 & 300,012 & 0,9755 \\
+Machine & \texttt{inst\_n19\_s02} & 19 & 1 & 19 & 285,767 & 0,9712 \\
+Machine & \texttt{inst\_n24\_s03} & 24 & 1 & 24 & 300,014 & 0,9629 \\
+Job Shop & \texttt{ft20} & 20 & 5 & 100 & 300,036 & 0,6008 \\
+Job Shop & \texttt{orb01} & 10 & 10 & 100 & 300,019 & 0,2879 \\
+Job Shop & \texttt{ft10} & 10 & 10 & 100 & 300,019 & 0,2157 \\
+Job Shop & \texttt{abz5} & 10 & 10 & 100 & 300,218 & 0,1425 \\
+Job Shop & \texttt{la02} & 10 & 5 & 50 & 270,615 & 0,0100 \\
+Flow Shop & \texttt{problem\_10m\_20j} & 20 & 10 & 200 & 300,249 & 0,0241 \\
+Flow Shop & \texttt{problem\_5m\_20j} & 20 & 5 & 100 & 6,014 & 0,0100 \\
+Flow Shop & \texttt{problem\_5m\_30j} & 30 & 5 & 150 & 0,619 & 0,0091 \\
+Flow Shop & \texttt{problem\_8m\_10j} & 10 & 8 & 80 & 2,096 & 0,0077 \\
+Flow Shop & \texttt{problem\_5m\_10j} & 10 & 5 & 50 & 0,203 & 0,0046 \\
+\bottomrule
+\end{longtable}
+
+A Tabela~\ref{tab:maior-porte} lista as instâncias de maior porte por problema.
+Essas instâncias concentram os maiores números de tarefas, máquinas, operações
+ou variáveis, e aparecem com frequência entre os casos de maior tempo ou maior
+gap.
+
+\begin{longtable}{llrrrrrr}
+\caption{Instâncias de maior porte por problema.}
+\label{tab:maior-porte}\\
+\toprule
+Problema & Instância & Tarefas & Máq. & Oper. & Var. & Restr. & Status \\
+\midrule
+\endfirsthead
+\toprule
+Problema & Instância & Tarefas & Máq. & Oper. & Var. & Restr. & Status \\
+\midrule
+\endhead
+Machine & \texttt{inst\_n24\_s01} & 24 & 1 & 24 & 348 & 1044 & TIME\_LIMIT \\
+Machine & \texttt{inst\_n24\_s02} & 24 & 1 & 24 & 348 & 1044 & TIME\_LIMIT \\
+Machine & \texttt{inst\_n24\_s03} & 24 & 1 & 24 & 348 & 1044 & TIME\_LIMIT \\
+Machine & \texttt{inst\_n21\_s01} & 21 & 1 & 21 & 273 & 819 & TIME\_LIMIT \\
+Machine & \texttt{inst\_n21\_s02} & 21 & 1 & 21 & 273 & 819 & TIME\_LIMIT \\
+Job Shop & \texttt{ft20} & 20 & 5 & 100 & 1051 & 3152 & TIME\_LIMIT \\
+Job Shop & \texttt{abz5} & 10 & 10 & 100 & 551 & 1652 & TIME\_LIMIT \\
+Job Shop & \texttt{abz6} & 10 & 10 & 100 & 551 & 1652 & OPTIMAL \\
+Job Shop & \texttt{ft10} & 10 & 10 & 100 & 551 & 1652 & TIME\_LIMIT \\
+Job Shop & \texttt{orb01} & 10 & 10 & 100 & 551 & 1652 & TIME\_LIMIT \\
+Flow Shop & \texttt{problem\_10m\_20j} & 20 & 10 & 200 & 601 & 1214 & TIME\_LIMIT \\
+Flow Shop & \texttt{problem\_5m\_30j} & 30 & 5 & 150 & 1051 & 1529 & OPTIMAL \\
+Flow Shop & \texttt{problem\_5m\_20j} & 20 & 5 & 100 & 501 & 819 & OPTIMAL \\
+Flow Shop & \texttt{problem\_8m\_10j} & 10 & 8 & 80 & 181 & 426 & OPTIMAL \\
+Flow Shop & \texttt{problem\_3m\_20j} & 20 & 3 & 60 & 461 & 661 & OPTIMAL \\
+\bottomrule
+\end{longtable}
+
+A Tabela~\ref{tab:gantt-instancias} mostra as instâncias utilizadas nos
+gráficos de Gantt. Todas possuem solução primal e status ótimo nos resultados
+registrados.
+
+\begin{table}[H]
+\centering
+\caption{Instâncias selecionadas para os gráficos de Gantt.}
+\label{tab:gantt-instancias}
+\scriptsize
+\begin{tabular}{llrrrrrr}
+\toprule
+Problema & Instância & Tarefas & Máq. & Oper. & Status & Tempo (s) & Gap \\
+\midrule
+Machine & \texttt{inst\_n05\_s01} & 5 & 1 & 5 & OPTIMAL & 0,015 & 0,0000 \\
+Job Shop & \texttt{ft06} & 6 & 6 & 36 & OPTIMAL & 0,509 & 0,0000 \\
+Flow Shop & \texttt{problem\_3m\_10j} & 10 & 3 & 30 & OPTIMAL & 0,017 & 0,0000 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Não houve instâncias com erro nos resultados consolidados, conforme indicado na
+Tabela~\ref{tab:geral} e na tabela específica de erros gerada pelo script de
+resultados.
+
+\subsection{Gráficos de Gantt}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\textwidth]{gantt_machine_inst_n05_s01_estilo_professor.pdf}
+\caption{Gantt de Machine Scheduling para a programação das tarefas da instância \texttt{inst\_n05\_s01}.}
+\label{fig:gantt-machine}
+\end{figure}
+
+Na Figura~\ref{fig:gantt-machine}, todas as tarefas são processadas em uma
+única máquina. A própria máquina determina o makespan da programação.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.94\textwidth]{gantt_job_shop_ft06_estilo_professor.pdf}
+\caption{Gantt de Job Shop Scheduling para a programação das operações da instância \texttt{ft06}.}
+\label{fig:gantt-job}
+\end{figure}
+
+A Figura~\ref{fig:gantt-job} mostra a interação entre precedências dos jobs e
+conflitos por máquina. As esperas entre operações decorrem da necessidade de
+respeitar simultaneamente a ordem tecnológica e a disponibilidade das máquinas.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.94\textwidth]{gantt_flow_shop_problem_3m_10j_estilo_professor.pdf}
+\caption{Gantt de Flow Shop Scheduling para a programação das tarefas nas máquinas da instância \texttt{problem\_3m\_10j}.}
+\label{fig:gantt-flow}
+\end{figure}
+
+A Figura~\ref{fig:gantt-flow} evidencia o fluxo das tarefas pela sequência
+comum de máquinas. A programação apresenta tempos ociosos resultantes do
+encadeamento entre estágios e da carga desigual entre máquinas.
+
+\subsection{Dashboard comparativo}
+
+\begin{landscape}
+\begin{figure}[p]
+\centering
+\includegraphics[width=0.96\linewidth,height=0.86\textheight,keepaspectratio]{dashboard_resultados.pdf}
+\caption{Dashboard comparativo dos resultados computacionais.}
+\label{fig:dashboard}
+\end{figure}
+\end{landscape}
+
+O dashboard da Figura~\ref{fig:dashboard} consolida os principais indicadores
+do experimento, incluindo status das execuções, tempos médios por problema,
+relações entre porte e tempo de solução e instâncias de maior dificuldade. A
+visualização reforça a diferença de comportamento entre os três problemas.
+
+\input{discussao.tex}
+
+\input{conclusao.tex}
+
+\end{document}
